@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">salescrm</string>
+    <string name="generate_otp">Generate OTP</string>
+    <string name="register_otp">Register OTP</string>
+    <string name="select_customer">Choose Customer</string>
+    <string name="otp_type">OTP Type</string>
+
+    <string-array name="customer_array">
+        <item>Select Customer</item>
+        <item>Customer1</item>
+        <item>Customer2</item>
+        <item>Customer3</item>
+        <item>Customer4</item>
+    </string-array>
+
+
+    <string-array name="otp_types_array">
+        <item>Select OTP Type</item>
+        <item>Order Booking</item>
+        <item>Delivery Confirmation</item>
+        <item>Payment</item>
+    </string-array>
+
+</resources>
