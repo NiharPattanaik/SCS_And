@@ -15,26 +15,32 @@
         android:layout_marginStart="71dp"
         android:layout_marginTop="65dp"
         android:text="@string/select_customer"
+        android:textAlignment="viewStart"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <Spinner
         android:id="@+id/customers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
         android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView" />
+        android:layout_alignStart="@+id/textView"
+        android:layout_below="@+id/textView"
+        android:theme="@android:style/Theme.Holo.Light.DarkActionBar"/>
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/customers"
+        android:layout_alignStart="@+id/customers"
+        android:layout_below="@+id/customers"
         android:layout_marginTop="20dp"
         android:text="@string/otp_type"
-        android:textStyle="bold"
-        android:layout_below="@+id/customers"
-        android:layout_alignLeft="@+id/customers"
-        android:layout_alignStart="@+id/customers" />
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <Spinner
         android:id="@+id/otp_types"
@@ -42,7 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
         android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2" />
+        android:layout_alignStart="@+id/textView2"
+        android:theme="@android:style/Theme.Holo.Light.DarkActionBar"/>
 
     <Button
         android:id="@+id/button"
