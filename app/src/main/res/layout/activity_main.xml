@@ -6,28 +6,69 @@
     android:layout_height="match_parent"
     tools:context="crm.sales.com.salescrm.MainActivity">
 
-    <Button
-        android:id="@+id/generate_otp"
+    <TextView
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/generate_otp"
-        tools:layout_editor_absoluteX="129dp"
-        tools:layout_editor_absoluteY="83dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="113dp"
+        android:text="User Name"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/register_otp"
-        android:layout_alignStart="@+id/register_otp"
-        android:onClick="generateOTP"/>
+        android:layout_alignLeft="@+id/user"
+        android:layout_alignStart="@+id/user" />
+
+    <EditText
+        android:id="@+id/user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/textView5"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_alignStart="@+id/textView5"
+        android:layout_below="@+id/user"
+        android:layout_marginTop="34dp"
+        android:text="Password" />
+
+    <EditText
+        android:id="@+id/pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:layout_below="@+id/textView6"
+        android:layout_alignLeft="@+id/textView6"
+        android:layout_alignStart="@+id/textView6" />
 
     <Button
-        android:id="@+id/register_otp"
+        android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/register_otp"
-        tools:layout_editor_absoluteX="133dp"
-        tools:layout_editor_absoluteY="179dp"
-        android:layout_marginTop="56dp"
-        android:layout_below="@+id/generate_otp"
-        android:layout_centerHorizontal="true"
-        android:onClick="registerOTP"/>
+        android:layout_marginTop="22dp"
+        android:text="Login"
+        android:layout_below="@+id/pass"
+        android:layout_alignLeft="@+id/pass"
+        android:layout_alignStart="@+id/pass"
+        android:onClick="login"/>
+
+    <TextView
+        android:id="@+id/error_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/pass"
+        android:layout_alignStart="@+id/pass"
+        android:layout_below="@+id/button3"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="11dp"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_red_dark" />
+
 </RelativeLayout>

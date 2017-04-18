@@ -16,6 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".PostLoginActivity"/>
         <activity android:name=".GenerateOTPActivity"/>
         <activity android:name=".OTPConfirmationActivity"/>
     </application>
