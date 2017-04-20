@@ -34,34 +34,35 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    //EditText user;
-    //EditText pass;
-
     private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //user = (EditText) findViewById(R.id.user);
-        //pass = (EditText) findViewById(R.id.pass);
     }
 
     public void login(View view) {
-        EditText user = (EditText) findViewById(R.id.user);
-        EditText pass = (EditText) findViewById(R.id.pass);
+        EditText user = (EditText) findViewById(R.id.main_user);
+        EditText pass = (EditText) findViewById(R.id.main_pass);
         Log.i(TAG, "User Name "+ user.getText().toString());
         Log.i(TAG, "Password "+ pass.getText().toString());
         String userName = user.getText().toString();
         String password = pass.getText().toString();
-        new HttpRequestTask().execute(userName, password);
+
+        if(userName.trim().isEmpty() || password.trim().isEmpty() ){
+            TextView textView = (TextView) findViewById(R.id.main_error_msg);
+            textView.setText("User Name or Password is empty.");
+        }else {
+            new HttpRequestTask().execute(userName, password);
+        }
 
         SharedPreferences sharedpreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
-        //SharedPreferences.Editor editor = sharedpreferences.edit();
         System.out.println("##########################################################");
         System.out.println(sharedpreferences.getString("userName", ""));
         System.out.println(sharedpreferences.getString("password", ""));
         System.out.println(sharedpreferences.getInt("userID", -1));
+        System.out.println(sharedpreferences.getInt("resellerID", -1));
         System.out.println(sharedpreferences.getString("roleIDs", ""));
         System.out.println("##########################################################");
 
@@ -91,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             int userID = -1;
+            int resellerID = -1;
             String commaSeparatedRoleIDs = "";
             try {
                 JSONObject jsonObject = new JSONObject(result);
@@ -99,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(jsonObject.get("errorCode"));
 
                 if(jsonObject.getInt("status") == 0){
-                    TextView view = (TextView) findViewById(R.id.error_msg);
+                    TextView view = (TextView) findViewById(R.id.main_error_msg);
                     view.setText(jsonObject.getString("errorMsg"));
                 }else{
                     JSONObject userJson = new JSONObject(result);
@@ -109,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
                             JSONObject userObject = new JSONObject(userArray.get(0).toString());
                             //Retrive User ID
                             userID = userObject.getInt("userID");
+                            //Retrieve Reseller ID
+                            resellerID = userObject.getInt("resellerID");
                             JSONArray rolesArray = userObject.getJSONArray("roles");
                             if(rolesArray != null){
                                 String[] roleIDArray = new String[rolesArray.length()];
@@ -129,8 +133,13 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("userName", userName);
                     editor.putString("password", password);
                     editor.putInt("userID", userID);
+                    editor.putInt("resellerID", resellerID);
                     editor.putString("roleIDs", commaSeparatedRoleIDs);
                     editor.commit();
+
+                    Intent intent = new Intent(MainActivity.this, PostLoginActivity.class);
+                    startActivity(intent);
+
                 }
 
             } catch (JSONException e) {

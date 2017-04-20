@@ -9,13 +9,13 @@ import android.widget.TextView;
  * Created by npattana on 31/03/17.
  */
 
-public class OTPConfirmationActivity extends AppCompatActivity {
+public class OTPRegistrationConfirmationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_otp_confirmation);
+        setContentView(R.layout.activity_otp_registration_confirmation);
         String customerName= getIntent().getStringExtra("customer_name");
-        TextView textView = (TextView)findViewById(R.id.otp_conf);
-        textView.setText("OTP for customer "+ customerName +" has been successfully generated and sent.");
+        TextView textView = (TextView)findViewById(R.id.registration_otp_conf);
+        textView.setText("OTP for customer "+ customerName +" has been successfully verified and registered.");
     }
 }

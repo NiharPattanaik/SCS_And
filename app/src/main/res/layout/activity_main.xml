@@ -7,43 +7,43 @@
     tools:context="crm.sales.com.salescrm.MainActivity">
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/main_textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="113dp"
         android:text="User Name"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/user"
-        android:layout_alignStart="@+id/user" />
+        android:layout_alignLeft="@+id/main_user"
+        android:layout_alignStart="@+id/main_user" />
 
     <EditText
-        android:id="@+id/user"
+        android:id="@+id/main_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:layout_below="@+id/textView5"
+        android:layout_below="@+id/main_textView5"
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/main_textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView5"
-        android:layout_alignStart="@+id/textView5"
-        android:layout_below="@+id/user"
+        android:layout_alignLeft="@+id/main_textView5"
+        android:layout_alignStart="@+id/main_textView5"
+        android:layout_below="@+id/main_user"
         android:layout_marginTop="34dp"
         android:text="Password" />
 
     <EditText
-        android:id="@+id/pass"
+        android:id="@+id/main_pass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
-        android:layout_below="@+id/textView6"
-        android:layout_alignLeft="@+id/textView6"
-        android:layout_alignStart="@+id/textView6" />
+        android:layout_below="@+id/main_textView6"
+        android:layout_alignLeft="@+id/main_textView6"
+        android:layout_alignStart="@+id/main_textView6" />
 
     <Button
         android:id="@+id/button3"
@@ -51,17 +51,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
         android:text="Login"
-        android:layout_below="@+id/pass"
-        android:layout_alignLeft="@+id/pass"
-        android:layout_alignStart="@+id/pass"
+        android:layout_below="@+id/main_pass"
+        android:layout_alignLeft="@+id/main_pass"
+        android:layout_alignStart="@+id/main_pass"
         android:onClick="login"/>
 
     <TextView
-        android:id="@+id/error_msg"
+        android:id="@+id/main_error_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/pass"
-        android:layout_alignStart="@+id/pass"
+        android:layout_alignLeft="@+id/main_pass"
+        android:layout_alignStart="@+id/main_pass"
         android:layout_below="@+id/button3"
         android:layout_marginLeft="11dp"
         android:layout_marginStart="11dp"

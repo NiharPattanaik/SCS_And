@@ -9,10 +9,10 @@
 
 
     <string-array name="otp_types_array">
-        <item>Select OTP Type</item>
+        <item>-- Select OTP Type --</item>
         <item>Order Booking</item>
         <item>Delivery Confirmation</item>
-        <item>Payment</item>
+        <item>Payment Confirmation</item>
     </string-array>
 
 </resources>

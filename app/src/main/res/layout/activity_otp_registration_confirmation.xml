@@ -4,7 +4,7 @@
 
 
     <TextView
-        android:id="@+id/otp_conf"
+        android:id="@+id/registration_otp_conf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"

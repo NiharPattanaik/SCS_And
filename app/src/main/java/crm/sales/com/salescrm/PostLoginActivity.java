@@ -1,6 +1,8 @@
 package crm.sales.com.salescrm;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,8 +28,8 @@ public class PostLoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_login);
-        generateOTP = (Button) findViewById(R.id.generate_otp);
-        registerOTP = (Button) findViewById(R.id.register_otp);
+        generateOTP = (Button) findViewById(R.id.post_login_generate_otp);
+        registerOTP = (Button) findViewById(R.id.post_login_register_otp);
     }
 
     public void generateOTP(View view) {
@@ -40,29 +42,9 @@ public class PostLoginActivity extends AppCompatActivity {
     public void registerOTP(View view) {
         System.out.println("Register OTP is clicked");
         Log.i(TAG, "Register OTP is clicked");
-        new HttpRequestTask().execute();
+        Intent intent = new Intent(this, RegisterOTPActivity.class);
+        startActivity(intent);
     }
 
-    private class HttpRequestTask extends AsyncTask<Void, Void, String> {
-        @Override
-        protected String doInBackground(Void... params) {
-            try {
-                final String url = "http://72.163.209.189:8080/crm/customer/trimmedCustomers/13";
-                RestTemplate restTemplate = new RestTemplate();
-                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                String greeting = restTemplate.getForObject(url, String.class);
-                return greeting;
-            } catch (Exception e) {
-                Log.e("MainActivity", e.getMessage(), e);
-            }
 
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String greeting) {
-            System.out.println(greeting);
-        }
-
-    }
 }

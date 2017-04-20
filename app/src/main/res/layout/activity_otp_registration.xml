@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/register_OTP_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="71dp"
+        android:layout_marginStart="71dp"
+        android:layout_marginTop="65dp"
+        android:text="@string/select_customer"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/register_OTP_customers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/register_OTP_textView"
+        android:layout_alignStart="@+id/register_OTP_textView"
+        android:layout_below="@+id/register_OTP_textView"
+        android:theme="@android:style/Theme.Holo.Light.DarkActionBar"/>
+
+    <TextView
+        android:id="@+id/register_OTP_textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/register_OTP_customers"
+        android:layout_alignStart="@+id/register_OTP_customers"
+        android:layout_below="@+id/register_OTP_customers"
+        android:layout_marginTop="20dp"
+        android:text="@string/otp_type"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/register_OTP_otp_types"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_OTP_textView2"
+        android:layout_alignLeft="@+id/register_OTP_textView2"
+        android:layout_alignStart="@+id/register_OTP_textView2"
+        android:theme="@android:style/Theme.Holo.Light.DarkActionBar"/>
+
+    <TextView
+        android:id="@+id/register_OTP_Enter_Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/register_OTP_otp_types"
+        android:layout_alignStart="@+id/register_OTP_otp_types"
+        android:layout_below="@+id/register_OTP_otp_types"
+        android:layout_marginTop="25dp"
+        android:text="Enter OTP"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/register_otp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/register_OTP_Enter_Text"
+        android:layout_alignLeft="@+id/register_OTP_Enter_Text"
+        android:layout_alignStart="@+id/register_OTP_Enter_Text"
+        android:layout_marginTop="10dp" />
+
+
+    <Button
+        android:id="@+id/register_OTP_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="register OTP"
+        android:onClick="validateAndregisterOTP"
+        android:layout_marginTop="17dp"
+        android:layout_below="@+id/register_otp"
+        android:layout_alignLeft="@+id/register_otp"
+        android:layout_alignStart="@+id/register_otp" />
+
+
+    <TextView
+        android:id="@+id/register_OTP_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_OTP_button"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="11dp"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_red_dark" />
+
+</RelativeLayout>

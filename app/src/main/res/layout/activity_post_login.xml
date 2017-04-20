@@ -6,7 +6,7 @@
     tools:context="crm.sales.com.salescrm.PostLoginActivity">
 
     <Button
-        android:id="@+id/generate_otp"
+        android:id="@+id/post_login_generate_otp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/generate_otp"
@@ -14,19 +14,19 @@
         tools:layout_editor_absoluteY="83dp"
         android:layout_marginTop="35dp"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/register_otp"
-        android:layout_alignStart="@+id/register_otp"
+        android:layout_alignLeft="@+id/post_login_register_otp"
+        android:layout_alignStart="@+id/post_login_register_otp"
         android:onClick="generateOTP"/>
 
     <Button
-        android:id="@+id/register_otp"
+        android:id="@+id/post_login_register_otp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/register_otp"
         tools:layout_editor_absoluteX="133dp"
         tools:layout_editor_absoluteY="179dp"
         android:layout_marginTop="56dp"
-        android:layout_below="@+id/generate_otp"
+        android:layout_below="@+id/post_login_generate_otp"
         android:layout_centerHorizontal="true"
         android:onClick="registerOTP"/>
 </RelativeLayout>

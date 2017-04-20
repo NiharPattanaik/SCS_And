@@ -11,6 +11,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -21,92 +22,68 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by npattana on 31/03/17.
+ * Created by npattana on 21/04/17.
  */
 
-public class GenerateOTPActivity extends AppCompatActivity {
-
+public class RegisterOTPActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_generate_otp);
+        setContentView(R.layout.activity_otp_registration);
         new FetchCustomersTask().execute();
         populateOTPTypeDropdown();
     }
 
-    /*@Override
-    protected void onStart() {
-        super.onStart();
-        new HttpRequestTask().execute();
-    }*/
-
-    private void populateCustomerDropdown(List<Customer> customers){
-        Spinner spinner = (Spinner) findViewById(R.id.generate_OTP_customers);
-        ArrayAdapter adapter = new ArrayAdapter(this,
-                android.R.layout.simple_spinner_item, customers.toArray(new Customer[customers.size()]));
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
-    }
-
-
-    private void populateOTPTypeDropdown(){
-        Spinner spinner = (Spinner) findViewById(R.id.generate_OTP_otp_types);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.otp_types_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
-
-    }
-
-    public void triggerOTPGeneration(View view) {
-        Spinner customerDropDn = (Spinner) findViewById(R.id.generate_OTP_customers);
-        Spinner otpTypeDropDn = (Spinner)findViewById(R.id.generate_OTP_otp_types);
-        TextView errorView = (TextView) findViewById(R.id.generate_OTP_error_msg);
-        Customer customer = (Customer) customerDropDn.getSelectedItem();
+    public void validateAndregisterOTP(View view) {
+        Spinner customerDropDn = (Spinner) findViewById(R.id.register_OTP_customers);
+        Spinner otpTypeDropDn = (Spinner)findViewById(R.id.register_OTP_otp_types);
+        EditText otpField = (EditText)findViewById(R.id.register_otp);
+        TextView errorView = (TextView) findViewById(R.id.register_OTP_error);
         //Show error if dropdown is not selected
         if(customerDropDn.getSelectedItemPosition() == 0){
             errorView.setText("Please select Customer.");
         } else if(otpTypeDropDn.getSelectedItemPosition() == 0){
             errorView.setText("Please select OTP Type.");
-        } else {
-            if (customer != null && otpTypeDropDn.getSelectedItemPosition() != 0) {
+        } else if(otpField.getText().toString().trim().isEmpty()){
+            errorView.setText("Please enter OTP.");
+        }else {
+            Customer customer = (Customer) customerDropDn.getSelectedItem();
+            if (customer != null && otpTypeDropDn.getSelectedItemPosition() != 0 && !otpField.getText().toString().trim().isEmpty()) {
                 int customerID = customer.getCustomerID();
                 int otpType = otpTypeDropDn.getSelectedItemPosition();
+                String otp = otpField.getText().toString();
                 String customerName = customer.getCustomerName();
-                new GenerateOTPTask().execute(customerID, otpType, customerName);
+                new registerOTPTask().execute(customerID, otpType, otp, customerName);
             }
         }
-    }
+      }
 
-    private class GenerateOTPTask extends AsyncTask<Object, Void, String> {
+    private class registerOTPTask extends AsyncTask<Object, Void, String> {
         SharedPreferences sharedpreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
         int customerID = -1;
         int otpType = -1;
+        String otp = "";
         String customerName = "";
         @Override
         protected String doInBackground(Object... params) {
             customerID = Integer.valueOf(String.valueOf(params[0]));
             otpType = Integer.valueOf(String.valueOf(params[1]));
-            customerName = String.valueOf(params[2]);
+            otp = String.valueOf(params[2]);
+            customerName = String.valueOf(params[3]);
             String userName = sharedpreferences.getString("userName", "");
             String password = sharedpreferences.getString("password", "");
             String plainCreds = userName+":"+password;
             String base64encoded = Base64.encodeToString(plainCreds.getBytes(), Base64.DEFAULT);
             HttpHeaders headers = new HttpHeaders();
             headers.add("Authorization", "Basic " + base64encoded);
-            final String url = "http://192.168.0.4:8080/crm/rest/otpReST/generate/" + customerID +"/"+ otpType;
+            final String url = "http://192.168.0.4:8080/crm/rest/otpReST/verify/"+ customerID + "/" + otpType + "/" + otp;
             System.out.println(url);
             HttpEntity<String> request = new HttpEntity<String>(headers);
             RestTemplate restTemplate = new RestTemplate();
@@ -118,11 +95,11 @@ public class GenerateOTPActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            TextView view = (TextView) findViewById(R.id.generate_OTP_error_msg);
+            TextView view = (TextView) findViewById(R.id.register_OTP_error);
             try {
                 JSONObject resultJson = new JSONObject(result);
                 if(resultJson.getInt("status") == 1){
-                    Intent intent = new Intent(GenerateOTPActivity.this, OTPConfirmationActivity.class);
+                    Intent intent = new Intent(RegisterOTPActivity.this, OTPRegistrationConfirmationActivity.class);
                     intent.putExtra("customer_name", customerName);
                     startActivity(intent);
                 }else{
@@ -135,6 +112,27 @@ public class GenerateOTPActivity extends AppCompatActivity {
         }
     }
 
+    private void populateCustomerDropdown(List<Customer> customers){
+        Spinner spinner = (Spinner) findViewById(R.id.register_OTP_customers);
+        ArrayAdapter adapter = new ArrayAdapter(this,
+                android.R.layout.simple_spinner_item, customers.toArray(new Customer[customers.size()]));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+    }
+
+
+    private void populateOTPTypeDropdown(){
+        Spinner spinner = (Spinner) findViewById(R.id.register_OTP_otp_types);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.otp_types_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+    }
 
     private class FetchCustomersTask extends AsyncTask<Void, Void, String> {
         SharedPreferences sharedpreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
@@ -164,7 +162,7 @@ public class GenerateOTPActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String response) {
-            TextView view = (TextView) findViewById(R.id.generate_OTP_error_msg);
+            TextView view = (TextView) findViewById(R.id.register_OTP_error);
             try {
                 JSONObject userJson = new JSONObject(response);
                 List<Customer> customers = new ArrayList<Customer>();

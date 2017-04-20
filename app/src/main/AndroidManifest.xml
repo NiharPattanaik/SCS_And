@@ -19,6 +19,8 @@
         <activity android:name=".PostLoginActivity"/>
         <activity android:name=".GenerateOTPActivity"/>
         <activity android:name=".OTPConfirmationActivity"/>
+        <activity android:name=".RegisterOTPActivity"/>
+        <activity android:name=".OTPRegistrationConfirmationActivity"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
