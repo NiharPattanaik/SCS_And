@@ -14,4 +14,13 @@
         android:layout_marginStart="11dp"
         android:layout_marginTop="75dp"
         android:text="" />
+    <Button
+        android:id="@+id/opt_home_page_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="39dp"
+        android:text="Return to Home"
+        android:onClick="navigateToHome"
+        android:layout_below="@+id/otp_conf"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

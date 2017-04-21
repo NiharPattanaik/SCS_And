@@ -31,7 +31,7 @@ import java.util.List;
  * Created by npattana on 31/03/17.
  */
 
-public class GenerateOTPActivity extends AppCompatActivity {
+public class GenerateOTPActivity extends BaseActivity {
 
 
     @Override
@@ -90,30 +90,42 @@ public class GenerateOTPActivity extends AppCompatActivity {
         }
     }
 
-    private class GenerateOTPTask extends AsyncTask<Object, Void, String> {
+    private class GenerateOTPTask extends AsyncTask<Object, Integer, String> {
         SharedPreferences sharedpreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
         int customerID = -1;
         int otpType = -1;
         String customerName = "";
+        String result = "";
         @Override
         protected String doInBackground(Object... params) {
-            customerID = Integer.valueOf(String.valueOf(params[0]));
-            otpType = Integer.valueOf(String.valueOf(params[1]));
-            customerName = String.valueOf(params[2]);
-            String userName = sharedpreferences.getString("userName", "");
-            String password = sharedpreferences.getString("password", "");
-            String plainCreds = userName+":"+password;
-            String base64encoded = Base64.encodeToString(plainCreds.getBytes(), Base64.DEFAULT);
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Authorization", "Basic " + base64encoded);
-            final String url = "http://192.168.0.4:8080/crm/rest/otpReST/generate/" + customerID +"/"+ otpType;
-            System.out.println(url);
-            HttpEntity<String> request = new HttpEntity<String>(headers);
-            RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.PUT, request, String.class);
-            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            String result = response.getBody();
+            try {
+                customerID = Integer.valueOf(String.valueOf(params[0]));
+                otpType = Integer.valueOf(String.valueOf(params[1]));
+                customerName = String.valueOf(params[2]);
+                String userName = sharedpreferences.getString("userName", "");
+                String password = sharedpreferences.getString("password", "");
+                String plainCreds = userName + ":" + password;
+                String base64encoded = Base64.encodeToString(plainCreds.getBytes(), Base64.DEFAULT);
+                HttpHeaders headers = new HttpHeaders();
+                headers.add("Authorization", "Basic " + base64encoded);
+                final String url = "http://35.185.167.188:8080/crm/rest/otpReST/generate/" + customerID + "/" + otpType;
+                System.out.println(url);
+                HttpEntity<String> request = new HttpEntity<String>(headers);
+                RestTemplate restTemplate = new RestTemplate();
+                ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.PUT, request, String.class);
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                result = response.getBody();
+            }catch(Exception exception){
+                Log.e("MainActivity", exception.getMessage(), exception);
+                publishProgress(0);
+            }
             return result;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            TextView errView = (TextView) findViewById(R.id.generate_OTP_error_msg);
+            errView.setText("Oops! something is not right. Please retry after sometime and if error persists contact System Administrator");
         }
 
         @Override
@@ -131,15 +143,18 @@ public class GenerateOTPActivity extends AppCompatActivity {
 
             }catch(Exception e){
                 Log.e("MainActivity", e.getMessage(), e);
+                TextView errView = (TextView) findViewById(R.id.generate_OTP_error_msg);
+                errView.setText("Oops! something is not right. Please retry after sometime and if error persists contact System Administrator");
             }
         }
     }
 
 
-    private class FetchCustomersTask extends AsyncTask<Void, Void, String> {
+    private class FetchCustomersTask extends AsyncTask<Void, Integer, String> {
         SharedPreferences sharedpreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
         @Override
         protected String doInBackground(Void... params) {
+            String result = "";
             try {
                 int userID = sharedpreferences.getInt("userID", -1);
                 String userName = sharedpreferences.getString("userName", "");
@@ -148,18 +163,23 @@ public class GenerateOTPActivity extends AppCompatActivity {
                 String base64encoded = Base64.encodeToString(plainCreds.getBytes(), Base64.DEFAULT);
                 HttpHeaders headers = new HttpHeaders();
                 headers.add("Authorization", "Basic " + base64encoded);
-                final String url = "http://192.168.0.4:8080/crm/rest/customer/scheduledCustomers/"+userID;
+                final String url = "http://35.185.167.188:8080/crm/rest/customer/scheduledCustomers/"+userID;
                 HttpEntity<String> request = new HttpEntity<String>(headers);
                 RestTemplate restTemplate = new RestTemplate();
                 ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, request, String.class);
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                String result = response.getBody();
-                return result;
+                result = response.getBody();
             } catch (Exception e) {
                 Log.e("MainActivity", e.getMessage(), e);
+                publishProgress(0);
             }
+            return result;
+        }
 
-            return "";
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            TextView errView = (TextView) findViewById(R.id.generate_OTP_error_msg);
+            errView.setText("Oops! something is not right. Please retry after sometime and if error persists contact System Administrator");
         }
 
         @Override
@@ -195,6 +215,8 @@ public class GenerateOTPActivity extends AppCompatActivity {
 
             }catch(Exception e){
                 Log.e("MainActivity", e.getMessage(), e);
+                TextView errView = (TextView) findViewById(R.id.generate_OTP_error_msg);
+                errView.setText("Oops! something is not right. Please retry after sometime and if error persists contact System Administrator");
             }
 
         }

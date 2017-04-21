@@ -18,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
  * Created by npattana on 18/04/17.
  */
 
-public class PostLoginActivity extends AppCompatActivity {
+public class PostLoginActivity extends BaseActivity {
     Button generateOTP;
     Button registerOTP;
 

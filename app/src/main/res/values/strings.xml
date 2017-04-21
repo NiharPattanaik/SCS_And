@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">salescrm</string>
+    <string name="app_name">Sales CRM</string>
     <string name="generate_otp">Generate OTP</string>
     <string name="register_otp">Register OTP</string>
     <string name="otp_type">OTP Type</string>
