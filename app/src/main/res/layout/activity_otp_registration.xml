@@ -8,16 +8,15 @@
         android:id="@+id/register_OTP_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/textView"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="71dp"
-        android:layout_marginStart="71dp"
-        android:layout_marginTop="65dp"
+        android:layout_alignRight="@+id/textView"
+        android:layout_marginEnd="21dp"
+        android:layout_marginRight="21dp"
+        android:layout_marginTop="86dp"
         android:text="@string/select_customer"
         android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textSize="18sp" />
 
     <Spinner
         android:id="@+id/register_OTP_customers"
@@ -38,8 +37,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/otp_type"
         android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textSize="18sp" />
 
     <Spinner
         android:id="@+id/register_OTP_otp_types"
@@ -60,8 +58,7 @@
         android:layout_marginTop="25dp"
         android:text="Enter OTP"
         android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/register_otp"
@@ -71,20 +68,7 @@
         android:inputType="textPersonName"
         android:layout_below="@+id/register_OTP_Enter_Text"
         android:layout_alignLeft="@+id/register_OTP_Enter_Text"
-        android:layout_alignStart="@+id/register_OTP_Enter_Text"
-        android:layout_marginTop="10dp" />
-
-
-    <Button
-        android:id="@+id/register_OTP_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="register OTP"
-        android:onClick="validateAndregisterOTP"
-        android:layout_marginTop="17dp"
-        android:layout_below="@+id/register_otp"
-        android:layout_alignLeft="@+id/register_otp"
-        android:layout_alignStart="@+id/register_otp" />
+        android:layout_alignStart="@+id/register_OTP_Enter_Text" />
 
 
     <TextView
@@ -94,10 +78,32 @@
         android:layout_below="@+id/register_OTP_button"
         android:layout_marginLeft="11dp"
         android:layout_marginStart="11dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="35dp"
         android:layout_marginRight="11dp"
         android:text=""
         android:textAlignment="center"
-        android:textColor="@android:color/holo_red_dark" />
+        android:textColor="@android:color/holo_red_dark"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/register_OTP_customers"
+        android:layout_marginBottom="45dp"
+        android:text="Verify OTP"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_alignRight="@+id/register_OTP_button"
+        android:layout_alignEnd="@+id/register_OTP_button" />
+
+    <Button
+        android:id="@+id/register_OTP_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Verify OTP"
+        android:onClick="validateAndregisterOTP"
+        android:layout_below="@+id/register_otp"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

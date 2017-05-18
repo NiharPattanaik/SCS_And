@@ -61,8 +61,23 @@ public class GenerateOTPActivity extends BaseActivity {
     private void populateOTPTypeDropdown(){
         Spinner spinner = (Spinner) findViewById(R.id.generate_OTP_otp_types);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.otp_types_array, android.R.layout.simple_spinner_item);
+        SharedPreferences sharedpreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
+        String commaSeparatedRoleIDs = sharedpreferences.getString("roleIDs", "");
+        ArrayList<String> otpTypeList = new ArrayList<String>();
+        otpTypeList.add("-- Select OTP Type --");
+        for(String roleID : commaSeparatedRoleIDs.split(",")){
+            if(roleID.equals("2")){
+                otpTypeList.add("Order Booking");
+            }else if(roleID.equals("3")){
+                otpTypeList.add("Delivery Confirmation");
+            }else if(roleID.equals("4")){
+                otpTypeList.add("Payment Confirmation");
+            }
+        }
+        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        //        R.array.otp_types_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter adapter = new ArrayAdapter(this,
+                android.R.layout.simple_spinner_item, otpTypeList.toArray(new String[otpTypeList.size()]));
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
@@ -108,7 +123,7 @@ public class GenerateOTPActivity extends BaseActivity {
                 String base64encoded = Base64.encodeToString(plainCreds.getBytes(), Base64.DEFAULT);
                 HttpHeaders headers = new HttpHeaders();
                 headers.add("Authorization", "Basic " + base64encoded);
-                final String url = "http://35.185.167.188:8080/crm/rest/otpReST/generate/" + customerID + "/" + otpType;
+                final String url = BaseActivity.ipaddress+"/crm/rest/otpReST/generate/" + customerID + "/" + otpType;
                 System.out.println(url);
                 HttpEntity<String> request = new HttpEntity<String>(headers);
                 RestTemplate restTemplate = new RestTemplate();
@@ -163,7 +178,7 @@ public class GenerateOTPActivity extends BaseActivity {
                 String base64encoded = Base64.encodeToString(plainCreds.getBytes(), Base64.DEFAULT);
                 HttpHeaders headers = new HttpHeaders();
                 headers.add("Authorization", "Basic " + base64encoded);
-                final String url = "http://35.185.167.188:8080/crm/rest/customer/scheduledCustomers/"+userID;
+                final String url = BaseActivity.ipaddress+"/crm/rest/customer/scheduledCustomers/"+userID;
                 HttpEntity<String> request = new HttpEntity<String>(headers);
                 RestTemplate restTemplate = new RestTemplate();
                 ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, request, String.class);

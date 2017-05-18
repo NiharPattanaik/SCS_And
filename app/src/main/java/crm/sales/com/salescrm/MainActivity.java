@@ -73,7 +73,7 @@ public class MainActivity extends BaseActivity {
             try {
                 userName = params[0];
                 password = params[1];
-                final String url = "http://35.185.167.188:8080/crm/rest/userReST/validateUser/"+userName+"/"+password;
+                final String url = BaseActivity.ipaddress+"/crm/rest/userReST/validateUser/"+userName+"/"+password;
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 response =  restTemplate.getForObject(url, String.class);
