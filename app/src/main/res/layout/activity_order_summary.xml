@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView01"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent">
     <RelativeLayout
         android:layout_width="match_parent" android:layout_height="match_parent">
 
@@ -87,7 +87,8 @@
         android:layout_below="@+id/order_summ_remarks"
         android:layout_alignRight="@+id/textView2"
         android:layout_alignEnd="@+id/textView2"
-        android:layout_marginTop="26dp" />
+        android:layout_marginTop="26dp"
+        android:onClick="submitOrder"/>
 
     <Button
         android:id="@+id/order_summ_edit_btn"
@@ -98,8 +99,20 @@
         android:layout_alignBottom="@+id/order_summ_sub_btn"
         android:layout_toRightOf="@+id/textView4"
         android:layout_toEndOf="@+id/textView4"
-        android:layout_below="@+id/order_summ_remarks"/>
+        android:layout_below="@+id/order_summ_remarks"
+        android:onClick="editOrder"/>
+
+    <TextView
+        android:id="@+id/order_summ_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_red_dark"
+        android:layout_below="@+id/order_summ_sub_btn"
+        android:layout_centerHorizontal="true" />
 
 
-    </RelativeLayout>
+</RelativeLayout>
 </ScrollView>

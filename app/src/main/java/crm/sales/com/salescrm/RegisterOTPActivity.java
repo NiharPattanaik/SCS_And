@@ -60,7 +60,8 @@ public class RegisterOTPActivity extends BaseActivity {
                 int otpType = otpTypeDropDn.getSelectedItemPosition();
                 String otp = otpField.getText().toString();
                 String customerName = customer.getCustomerName();
-                new registerOTPTask().execute(customerID, otpType, otp, customerName);
+                int orderBookingID = customer.getOrderBookingID();
+                new registerOTPTask().execute(customerID, otpType, otp, customerName, orderBookingID);
             }
         }
       }
@@ -71,6 +72,7 @@ public class RegisterOTPActivity extends BaseActivity {
         int otpType = -1;
         String otp = "";
         String customerName = "";
+        int orderBookingID = -1;
         @Override
         protected String doInBackground(Object... params) {
             String result = "";
@@ -79,6 +81,7 @@ public class RegisterOTPActivity extends BaseActivity {
                 otpType = Integer.valueOf(String.valueOf(params[1]));
                 otp = String.valueOf(params[2]);
                 customerName = String.valueOf(params[3]);
+                orderBookingID = Integer.valueOf(String.valueOf(params[4]));
                 String userName = sharedpreferences.getString("userName", "");
                 String password = sharedpreferences.getString("password", "");
                 String plainCreds = userName + ":" + password;
@@ -86,7 +89,6 @@ public class RegisterOTPActivity extends BaseActivity {
                 HttpHeaders headers = new HttpHeaders();
                 headers.add("Authorization", "Basic " + base64encoded);
                 final String url = BaseActivity.ipaddress+"/crm/rest/otpReST/verify/" + customerID + "/" + otpType + "/" + otp;
-                System.out.println(url);
                 HttpEntity<String> request = new HttpEntity<String>(headers);
                 RestTemplate restTemplate = new RestTemplate();
                 ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.PUT, request, String.class);
@@ -112,7 +114,7 @@ public class RegisterOTPActivity extends BaseActivity {
                 JSONObject resultJson = new JSONObject(result);
                 if(resultJson.getInt("status") == 1){
                     Intent intent = new Intent(RegisterOTPActivity.this, CreateOrderActivity.class);
-                    intent.putExtra("customer_name", customerName);
+                    intent.putExtra("orderBookingID", orderBookingID);
                     startActivity(intent);
                 }else{
                     view.setText(resultJson.getString("errorMsg"));
@@ -210,9 +212,9 @@ public class RegisterOTPActivity extends BaseActivity {
                             Customer customer = new Customer();
                             customer.setCustomerID(custObject.getInt("customerID"));
                             customer.setCustomerName(custObject.getString("customerName"));
+                            customer.setOrderBookingID(custObject.getInt("orderBookingID"));
                             customers.add(customer);
                         }
-
                     }
                     Customer cust = new Customer();
                     cust.setCustomerID(-1);
@@ -226,7 +228,6 @@ public class RegisterOTPActivity extends BaseActivity {
                 }else{
                     view.setText(userJson.getString("errorMsg"));
                 }
-
             }catch(Exception e){
                 Log.e("MainActivity", e.getMessage(), e);
                 TextView errView = (TextView) findViewById(R.id.register_OTP_error);

@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -42,11 +43,6 @@ public class GenerateOTPActivity extends BaseActivity {
         populateOTPTypeDropdown();
     }
 
-    /*@Override
-    protected void onStart() {
-        super.onStart();
-        new HttpRequestTask().execute();
-    }*/
 
     private void populateCustomerDropdown(List<Customer> customers){
         Spinner spinner = (Spinner) findViewById(R.id.generate_OTP_customers);
@@ -82,7 +78,6 @@ public class GenerateOTPActivity extends BaseActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
-
     }
 
     public void triggerOTPGeneration(View view) {
@@ -98,7 +93,18 @@ public class GenerateOTPActivity extends BaseActivity {
         } else {
             if (customer != null && otpTypeDropDn.getSelectedItemPosition() != 0) {
                 int customerID = customer.getCustomerID();
-                int otpType = otpTypeDropDn.getSelectedItemPosition();
+                int otpType = -1;
+                switch((String)otpTypeDropDn.getSelectedItem()){
+                    case "Order Booking":
+                        otpType = 1;
+                        break;
+                    case "Delivery Confirmation":
+                        otpType = 2;
+                        break;
+                    case "Payment Confirmation":
+                        otpType = 3;
+                        break;
+                }
                 String customerName = customer.getCustomerName();
                 new GenerateOTPTask().execute(customerID, otpType, customerName);
             }

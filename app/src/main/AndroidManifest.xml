@@ -20,7 +20,7 @@
         <activity android:name=".GenerateOTPActivity"/>
         <activity android:name=".OTPConfirmationActivity"/>
         <activity android:name=".RegisterOTPActivity"/>
-        <activity android:name=".OTPRegistrationConfirmationActivity"/>
+        <activity android:name=".OrderCreationConfirmationActivity"/>
         <activity android:name=".CreateOrderActivity"/>
         <activity android:name=".EditOrderActivity"/>
         <activity android:name=".OrderSummaryActivity"/>

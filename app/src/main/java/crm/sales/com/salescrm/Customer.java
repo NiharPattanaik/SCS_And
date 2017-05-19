@@ -8,6 +8,7 @@ public class Customer {
 
     int customerID;
     String customerName;
+    private int orderBookingID;
     public int getCustomerID() {
         return customerID;
     }
@@ -20,7 +21,8 @@ public class Customer {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
-
+    public int getOrderBookingID(){ return  orderBookingID ;}
+    public void setOrderBookingID(int orderBookingID){ this.orderBookingID = orderBookingID; }
     public String toString(){
         return customerName;
     }
