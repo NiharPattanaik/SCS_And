@@ -39,8 +39,18 @@ public class GenerateOTPActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_otp);
-        new FetchCustomersTask().execute();
+        //new FetchCustomersTask().execute();
         populateOTPTypeDropdown();
+        populateEmptyCustomerDropDown();
+    }
+
+    private void populateEmptyCustomerDropDown(){
+        List<Customer> customers = new ArrayList<Customer>();
+        Customer cust = new Customer();
+        cust.setCustomerID(-1);
+        cust.setCustomerName("-- Select a customer --");
+        customers.add(0, cust);
+        populateCustomerDropdown(customers);
     }
 
 
@@ -78,6 +88,30 @@ public class GenerateOTPActivity extends BaseActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+
+        //on selection
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String otpType = (String)parent.getItemAtPosition(position);
+                switch(otpType){
+                    case "Order Booking":
+                        new FetchCustomersTask().execute(1);
+                        break;
+                    case "Delivery Confirmation":
+                        new FetchCustomersTask().execute(2);
+                        break;
+                    case "Payment Confirmation":
+                        new FetchCustomersTask().execute(3);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     public void triggerOTPGeneration(View view) {
@@ -86,10 +120,10 @@ public class GenerateOTPActivity extends BaseActivity {
         TextView errorView = (TextView) findViewById(R.id.generate_OTP_error_msg);
         Customer customer = (Customer) customerDropDn.getSelectedItem();
         //Show error if dropdown is not selected
-        if(customerDropDn.getSelectedItemPosition() == 0){
-            errorView.setText("Please select Customer.");
-        } else if(otpTypeDropDn.getSelectedItemPosition() == 0){
+        if(otpTypeDropDn.getSelectedItemPosition() == 0){
             errorView.setText("Please select OTP Type.");
+        }else if(customerDropDn.getSelectedItemPosition() == 0){
+            errorView.setText("Please select Customer.");
         } else {
             if (customer != null && otpTypeDropDn.getSelectedItemPosition() != 0) {
                 int customerID = customer.getCustomerID();
@@ -171,12 +205,25 @@ public class GenerateOTPActivity extends BaseActivity {
     }
 
 
-    private class FetchCustomersTask extends AsyncTask<Void, Integer, String> {
+    private class FetchCustomersTask extends AsyncTask<Integer, Integer, String> {
         SharedPreferences sharedpreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
         @Override
-        protected String doInBackground(Void... params) {
+        protected String doInBackground(Integer... params) {
             String result = "";
+            String uri = "";
             try {
+                int otpType = params[0];
+                switch (otpType){
+                    case 1:
+                        uri = "scheduledCustomers";
+                        break;
+                    case 2:
+                        uri = "scheduledCustomersForDelivery";
+                        break;
+                    case 3:
+                        uri = "scheduledCustomersForPayment";
+                        break;
+                }
                 int userID = sharedpreferences.getInt("userID", -1);
                 String userName = sharedpreferences.getString("userName", "");
                 String password = sharedpreferences.getString("password", "");
@@ -184,7 +231,7 @@ public class GenerateOTPActivity extends BaseActivity {
                 String base64encoded = Base64.encodeToString(plainCreds.getBytes(), Base64.DEFAULT);
                 HttpHeaders headers = new HttpHeaders();
                 headers.add("Authorization", "Basic " + base64encoded);
-                final String url = BaseActivity.ipaddress+"/crm/rest/customer/scheduledCustomers/"+userID;
+                final String url = BaseActivity.ipaddress+"/crm/rest/customer/"+ uri +"/"+userID;
                 HttpEntity<String> request = new HttpEntity<String>(headers);
                 RestTemplate restTemplate = new RestTemplate();
                 ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, request, String.class);

@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
 
     <TextView
         android:id="@+id/generate_OTP_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/generate_OTP_otp_types"
+        android:layout_alignStart="@+id/generate_OTP_otp_types"
+        android:layout_below="@+id/generate_OTP_otp_types"
         android:layout_marginTop="38dp"
         android:text="@string/select_customer"
         android:textColor="@android:color/black"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_below="@+id/generate_OTP_otp_types"
-        android:layout_alignLeft="@+id/generate_OTP_otp_types"
-        android:layout_alignStart="@+id/generate_OTP_otp_types" />
+        android:textStyle="bold" />
 
     <Spinner
         android:id="@+id/generate_OTP_customers"
@@ -24,20 +25,20 @@
         android:layout_alignLeft="@+id/generate_OTP_textView"
         android:layout_alignStart="@+id/generate_OTP_textView"
         android:layout_below="@+id/generate_OTP_textView"
-        android:theme="@android:style/Theme.Holo.Light.DarkActionBar"/>
+        android:theme="@android:style/Theme.Holo.Light.DarkActionBar" />
 
     <TextView
         android:id="@+id/generate_OTP_textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="112dp"
+        android:layout_toLeftOf="@+id/generate_OTP_button"
+        android:layout_toStartOf="@+id/generate_OTP_button"
         android:text="@string/otp_type"
         android:textColor="@android:color/black"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginTop="112dp"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/generate_OTP_button"
-        android:layout_toStartOf="@+id/generate_OTP_button" />
+        android:textStyle="bold" />
 
     <Spinner
         android:id="@+id/generate_OTP_otp_types"
@@ -52,21 +53,19 @@
         android:id="@+id/generate_OTP_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:text="Generate OTP"
-        android:onClick="triggerOTPGeneration"
         android:layout_below="@+id/generate_OTP_customers"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        android:onClick="triggerOTPGeneration"
+        android:text="Generate OTP" />
 
     <TextView
         android:id="@+id/generate_OTP_error_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/generate_OTP_button"
-        android:layout_marginLeft="11dp"
-        android:layout_marginStart="11dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:layout_marginRight="11dp"
         android:text=""
         android:textAlignment="center"
         android:textColor="@android:color/holo_red_dark" />

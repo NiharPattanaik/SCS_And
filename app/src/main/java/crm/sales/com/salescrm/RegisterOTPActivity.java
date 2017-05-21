@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -37,9 +38,19 @@ public class RegisterOTPActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp_registration);
-        new FetchCustomersTask().execute();
         populateOTPTypeDropdown();
+        populateEmptyCustomerDropDown();
     }
+
+    private void populateEmptyCustomerDropDown(){
+        List<Customer> customers = new ArrayList<Customer>();
+        Customer cust = new Customer();
+        cust.setCustomerID(-1);
+        cust.setCustomerName("-- Select a customer --");
+        customers.add(0, cust);
+        populateCustomerDropdown(customers);
+    }
+
 
     public void validateAndregisterOTP(View view) {
         Spinner customerDropDn = (Spinner) findViewById(R.id.register_OTP_customers);
@@ -164,14 +175,38 @@ public class RegisterOTPActivity extends BaseActivity {
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
+        //on selection
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String otpType = (String)parent.getItemAtPosition(position);
+                switch(otpType){
+                    case "Order Booking":
+                        new RegisterOTPActivity.FetchCustomersTask().execute(1);
+                        break;
+                    case "Delivery Confirmation":
+                        new RegisterOTPActivity.FetchCustomersTask().execute(2);
+                        break;
+                    case "Payment Confirmation":
+                        new RegisterOTPActivity.FetchCustomersTask().execute(3);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
-    private class FetchCustomersTask extends AsyncTask<Void, Integer, String> {
+    private class FetchCustomersTask extends AsyncTask<Integer, Integer, String> {
         SharedPreferences sharedpreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
         @Override
-        protected String doInBackground(Void... params) {
+        protected String doInBackground(Integer... params) {
             String result = "";
             try {
+                int otpType = params[0];
                 int userID = sharedpreferences.getInt("userID", -1);
                 String userName = sharedpreferences.getString("userName", "");
                 String password = sharedpreferences.getString("password", "");
@@ -179,7 +214,7 @@ public class RegisterOTPActivity extends BaseActivity {
                 String base64encoded = Base64.encodeToString(plainCreds.getBytes(), Base64.DEFAULT);
                 HttpHeaders headers = new HttpHeaders();
                 headers.add("Authorization", "Basic " + base64encoded);
-                final String url = BaseActivity.ipaddress+"/crm/rest/customer/scheduledCustomers/"+userID;
+                final String url = BaseActivity.ipaddress+"/crm/rest/customer/customersForOTPVerification/"+userID +"/"+otpType;
                 HttpEntity<String> request = new HttpEntity<String>(headers);
                 RestTemplate restTemplate = new RestTemplate();
                 ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, request, String.class);
