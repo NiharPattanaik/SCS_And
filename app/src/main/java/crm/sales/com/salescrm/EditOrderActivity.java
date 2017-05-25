@@ -28,16 +28,25 @@ public class EditOrderActivity extends BaseActivity {
     }
 
     public void reviewOrder(View view){
+        TextView errorView = (TextView) findViewById(R.id.edit_order_error);
         EditText noOfLineItems = (EditText) findViewById(R.id.edit_order_nolines);
         EditText orderValue = (EditText) findViewById(R.id.edit_order_val);
         EditText remarks = (EditText)findViewById(R.id.edit_order_remark);
-        int orderBookingID = getIntent().getIntExtra("orderBookingID", 0);
-        Intent intent = new Intent(EditOrderActivity.this, OrderSummaryActivity.class);
-        intent.putExtra("noOfLineItems", Integer.valueOf(noOfLineItems.getText().toString()));
-        intent.putExtra("orderValue", Double.valueOf(orderValue.getText().toString()));
-        intent.putExtra("remarks", remarks.getText().toString());
-        intent.putExtra("orderBookingID", orderBookingID);
-        startActivity(intent);
+        if(noOfLineItems.getText() == null || noOfLineItems.getText().toString().trim().isEmpty()){
+            errorView.setText("Number Of Line Items is required.");
+        }else if(orderValue.getText() == null || orderValue.getText().toString().trim().isEmpty()){
+            errorView.setText("Aproximate order value is required.");
+        }else if(remarks.getText() == null || remarks.getText().toString().trim().isEmpty()){
+            errorView.setText("Remarks is required.");
+        }else {
+            int orderBookingID = getIntent().getIntExtra("orderBookingID", 0);
+            Intent intent = new Intent(EditOrderActivity.this, OrderSummaryActivity.class);
+            intent.putExtra("noOfLineItems", Integer.valueOf(noOfLineItems.getText().toString()));
+            intent.putExtra("orderValue", Double.valueOf(orderValue.getText().toString()));
+            intent.putExtra("remarks", remarks.getText().toString());
+            intent.putExtra("orderBookingID", orderBookingID);
+            startActivity(intent);
+        }
 
     }
 }

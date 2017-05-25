@@ -23,6 +23,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.StringUtils;
@@ -43,6 +44,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //setContentView(R.layout.test);
     }
 
     public void login(View view) {
@@ -76,8 +78,14 @@ public class MainActivity extends BaseActivity {
                 final String url = BaseActivity.ipaddress+"/crm/rest/userReST/validateUser/"+userName+"/"+password;
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                /**
+                HttpComponentsClientHttpRequestFactory rf =
+                        (HttpComponentsClientHttpRequestFactory) restTemplate.getRequestFactory();
+                rf.setReadTimeout(3000);
+                rf.setConnectTimeout(1000); **/
                 response =  restTemplate.getForObject(url, String.class);
             } catch (Exception exeception) {
+               exeception.printStackTrace();
                 Log.e("MainActivity", exeception.getMessage(), exeception);
                 publishProgress(0);
             }

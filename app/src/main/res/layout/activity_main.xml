@@ -1,72 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="crm.sales.com.salescrm.MainActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="449dp"
+        tools:context="crm.sales.com.salescrm.MainActivity">
 
-    <TextView
-        android:id="@+id/main_textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="113dp"
-        android:text="User Name"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/main_user"
-        android:layout_alignStart="@+id/main_user" />
+        <TextView
+            android:id="@+id/main_textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="113dp"
+            android:text="User Name"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/main_user"
+            android:layout_alignStart="@+id/main_user" />
 
-    <EditText
-        android:id="@+id/main_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_below="@+id/main_textView5"
-        android:layout_centerHorizontal="true" />
+        <EditText
+            android:id="@+id/main_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:layout_below="@+id/main_textView5"
+            android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:id="@+id/main_textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/main_textView5"
-        android:layout_alignStart="@+id/main_textView5"
-        android:layout_below="@+id/main_user"
-        android:layout_marginTop="34dp"
-        android:text="Password" />
+        <TextView
+            android:id="@+id/main_textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/main_textView5"
+            android:layout_alignStart="@+id/main_textView5"
+            android:layout_below="@+id/main_user"
+            android:layout_marginTop="34dp"
+            android:text="Password" />
 
-    <EditText
-        android:id="@+id/main_pass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:layout_below="@+id/main_textView6"
-        android:layout_alignLeft="@+id/main_textView6"
-        android:layout_alignStart="@+id/main_textView6" />
+        <EditText
+            android:id="@+id/main_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:layout_below="@+id/main_textView6"
+            android:layout_alignLeft="@+id/main_textView6"
+            android:layout_alignStart="@+id/main_textView6" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:text="Login"
-        android:layout_below="@+id/main_pass"
-        android:layout_alignLeft="@+id/main_pass"
-        android:layout_alignStart="@+id/main_pass"
-        android:onClick="login"/>
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="Login"
+            android:layout_below="@+id/main_pass"
+            android:layout_alignLeft="@+id/main_pass"
+            android:layout_alignStart="@+id/main_pass"
+            android:onClick="login"/>
 
-    <TextView
-        android:id="@+id/main_error_msg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button3"
-        android:layout_marginLeft="11dp"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="11dp"
-        android:text=""
-        android:textAlignment="center"
-        android:textColor="@android:color/holo_red_dark" />
+        <TextView
+            android:id="@+id/main_error_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button3"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="11dp"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_dark" />
 
-</RelativeLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/colorPrimary">
+    </RelativeLayout>
+</LinearLayout>

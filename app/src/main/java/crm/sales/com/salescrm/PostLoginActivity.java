@@ -19,8 +19,6 @@ import org.springframework.web.client.RestTemplate;
  */
 
 public class PostLoginActivity extends BaseActivity {
-    Button generateOTP;
-    Button registerOTP;
 
     private static final String TAG = PostLoginActivity.class.getSimpleName();
 
@@ -28,23 +26,9 @@ public class PostLoginActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_login);
-        generateOTP = (Button) findViewById(R.id.post_login_generate_otp);
-        registerOTP = (Button) findViewById(R.id.post_login_register_otp);
     }
 
-    public void generateOTP(View view) {
-        System.out.println("Genertae OTP is clicked");
 
-        Intent intent = new Intent(this, GenerateOTPActivity.class);
-        startActivity(intent);
-    }
-
-    public void registerOTP(View view) {
-        System.out.println("Register OTP is clicked");
-        Log.i(TAG, "Register OTP is clicked");
-        Intent intent = new Intent(this, RegisterOTPActivity.class);
-        startActivity(intent);
-    }
 
 
 }
