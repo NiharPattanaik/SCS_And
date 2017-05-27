@@ -15,7 +15,26 @@ import android.view.View;
 
 public class BaseActivity extends AppCompatActivity {
 
-    public static final String ipaddress = "http://192.168.0.7:8080";
+    public static final String ipaddress = "http://192.168.0.4:8080";
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_menu, menu);
+        return  true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.exit_menu){
+            SharedPreferences sharedpreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.clear();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     public void generateOTP(View view) {
         Intent intent = new Intent(this, GenerateOTPActivity.class);
@@ -27,11 +46,8 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void logOut(View view){
-        SharedPreferences sharedpreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.clear();
-        Intent intent = new Intent(this, MainActivity.class);
+    public void goHome(View view){
+        Intent intent = new Intent(this, PostLoginActivity.class);
         startActivity(intent);
     }
 }

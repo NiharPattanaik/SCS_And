@@ -6,7 +6,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="449dp"
+        android:layout_height="0dp"
+        android:layout_weight="87"
         tools:context="crm.sales.com.salescrm.MainActivity">
 
         <TextView

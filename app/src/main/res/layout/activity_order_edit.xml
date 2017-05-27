@@ -6,18 +6,19 @@
     <ScrollView
         android:id="@+id/ScrollView01"
         android:layout_width="fill_parent"
-        android:layout_height="449dp" >
+        android:layout_height="0dp"
+        android:layout_weight="87">
         <RelativeLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="449dp">
+            android:layout_height="match_parent">
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="35dp"
                 android:text="Edit Order Details"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
@@ -30,7 +31,7 @@
                 android:layout_below="@+id/textView3"
                 android:layout_marginLeft="75dp"
                 android:layout_marginStart="75dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="25dp"
                 android:text="No Of Line Items" />
 
             <EditText
@@ -47,7 +48,7 @@
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:text="Order Value (Aproximate)"
                 android:layout_below="@+id/edit_order_nolines"
                 android:layout_alignLeft="@+id/edit_order_nolines"
@@ -68,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Remarks"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_below="@+id/edit_order_val"
                 android:layout_alignLeft="@+id/edit_order_val"
                 android:layout_alignStart="@+id/edit_order_val" />
@@ -89,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/edit_order_remark"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:onClick="reviewOrder"
                 android:text="Review Order" />
 
@@ -99,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/button7"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="19dp"
+                android:layout_marginTop="15dp"
                 android:text=""
                 android:textAlignment="center"
                 android:textColor="@android:color/holo_red_dark" />

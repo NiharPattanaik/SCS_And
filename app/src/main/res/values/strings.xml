@@ -6,6 +6,9 @@
     <string name="select_customer">Customer</string>
     <string name="country_prompt">country_prompt</string>
 
+    <string name="tab1">Order Booking</string>
+
+
 
 
     <string-array name="otp_types_array">

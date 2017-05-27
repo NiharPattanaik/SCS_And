@@ -5,7 +5,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="449dp"
+        android:layout_height="0dp"
+        android:layout_weight="87"
         android:orientation="vertical">
 
         <TextView
@@ -47,7 +48,7 @@
             android:layout_alignLeft="@+id/register_OTP_otp_types"
             android:layout_alignStart="@+id/register_OTP_otp_types"
             android:layout_below="@+id/register_OTP_otp_types"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="20dp"
             android:text="Customer"
             android:textColor="@android:color/black"
             android:textSize="18sp"
@@ -69,7 +70,7 @@
             android:layout_alignLeft="@+id/register_OTP_customers"
             android:layout_alignStart="@+id/register_OTP_customers"
             android:layout_below="@+id/register_OTP_customers"
-            android:layout_marginTop="21dp"
+            android:layout_marginTop="15dp"
             android:text="OTP"
             android:textColor="@android:color/black"
             android:textSize="18sp"
@@ -91,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/register_otp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:onClick="validateAndregisterOTP"
             android:text="Verify" />
 
@@ -101,7 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/register_OTP_button"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:text=""
             android:textAlignment="center"
             android:textColor="@android:color/holo_red_dark" />
