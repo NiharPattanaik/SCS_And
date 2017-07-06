@@ -126,6 +126,7 @@ public class RegisterOTPActivity extends BaseActivity {
                 if(resultJson.getInt("status") == 1){
                     Intent intent = new Intent(RegisterOTPActivity.this, CreateOrderActivity.class);
                     intent.putExtra("orderBookingID", orderBookingID);
+                    intent.putExtra("customerID", customerID);
                     startActivity(intent);
                 }else{
                     view.setText(resultJson.getString("errorMsg"));

@@ -15,39 +15,61 @@ import android.view.View;
 
 public class BaseActivity extends AppCompatActivity {
 
-    public static final String ipaddress = "http://192.168.0.4:8080";
+    public static final String ipaddress = "http://35.189.180.185:8080";
+
+    public static final String LOGIN_STATUS = "loginStatus";
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_menu, menu);
-        return  true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.exit_menu){
-            SharedPreferences sharedpreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.clear();
+    public void onBackPressed() {
+        SharedPreferences sharedpreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
+        if(!sharedpreferences.getBoolean(LOGIN_STATUS, false)){
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+        }else{
+            super.onBackPressed();
         }
-        return super.onOptionsItemSelected(item);
     }
 
+    public void logOut(View view){
+        SharedPreferences sharedpreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.clear();
+        editor.putBoolean(LOGIN_STATUS, false);
+        editor.commit();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
     public void generateOTP(View view) {
-        Intent intent = new Intent(this, GenerateOTPActivity.class);
-        startActivity(intent);
+        SharedPreferences sharedpreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
+        if(!sharedpreferences.getBoolean(LOGIN_STATUS, false)){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }else {
+            Intent intent = new Intent(this, GenerateOTPActivity.class);
+            startActivity(intent);
+        }
     }
 
-    public void registerOTP(View view) {
-        Intent intent = new Intent(this, RegisterOTPActivity.class);
-        startActivity(intent);
+    public void createOrder(View view) {
+        SharedPreferences sharedpreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
+        if(!sharedpreferences.getBoolean(LOGIN_STATUS, false)){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }else {
+            Intent intent = new Intent(this, CreateOrderActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void goHome(View view){
-        Intent intent = new Intent(this, PostLoginActivity.class);
-        startActivity(intent);
+        SharedPreferences sharedpreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
+        if(!sharedpreferences.getBoolean(LOGIN_STATUS, false)){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }else {
+            Intent intent = new Intent(this, PostLoginActivity.class);
+            startActivity(intent);
+        }
     }
 }

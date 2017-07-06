@@ -25,11 +25,12 @@ public class Order {
 
     private int customerID;
 
-    public Order(int orderBookingID, int noOfLineItems, double bookValue, String remark){
+    public Order(int orderBookingID, int noOfLineItems, double bookValue, String remark, int customerID){
         this.orderBookingID = orderBookingID;
         this.noOfLineItems = noOfLineItems;
         this.bookValue = bookValue;
         this.remark = remark;
+        this.customerID = customerID;
     }
 
 

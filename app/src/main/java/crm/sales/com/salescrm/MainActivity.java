@@ -145,11 +145,11 @@ public class MainActivity extends BaseActivity {
                     editor.putInt("userID", userID);
                     editor.putInt("resellerID", resellerID);
                     editor.putString("roleIDs", commaSeparatedRoleIDs);
+                    editor.putBoolean(BaseActivity.LOGIN_STATUS, true);
                     editor.commit();
 
                     Intent intent = new Intent(MainActivity.this, PostLoginActivity.class);
                     startActivity(intent);
-
                 }
 
             } catch (JSONException exeception) {

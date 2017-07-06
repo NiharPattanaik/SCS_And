@@ -29,6 +29,8 @@
             android:layout_alignLeft="@+id/generate_OTP_textView"
             android:layout_alignStart="@+id/generate_OTP_textView"
             android:layout_below="@+id/generate_OTP_textView"
+            android:layout_alignRight="@+id/textView9"
+            android:layout_alignEnd="@+id/textView9"
             android:theme="@android:style/Theme.Holo.Light.DarkActionBar" />
 
         <TextView
@@ -51,6 +53,8 @@
             android:layout_alignLeft="@+id/generate_OTP_textView2"
             android:layout_alignStart="@+id/generate_OTP_textView2"
             android:layout_below="@+id/generate_OTP_textView2"
+            android:layout_alignRight="@+id/textView9"
+            android:layout_alignEnd="@+id/textView9"
             android:theme="@android:style/Theme.Holo.Light.DarkActionBar" />
 
         <Button
