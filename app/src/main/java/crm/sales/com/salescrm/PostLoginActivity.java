@@ -1,18 +1,14 @@
 package crm.sales.com.salescrm;
 
-import android.app.ActionBar;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -96,11 +92,12 @@ public class PostLoginActivity extends BaseActivity {
             try {
                 String userName = sharedpreferences.getString("userName", "");
                 String password = sharedpreferences.getString("password", "");
+                int tenantID = sharedpreferences.getInt("tenantID", 0);
                 String plainCreds = userName + ":" + password;
                 String base64encoded = Base64.encodeToString(plainCreds.getBytes(), Base64.DEFAULT);
                 HttpHeaders headers = new HttpHeaders();
                 headers.add("Authorization", "Basic " + base64encoded);
-                final String url = BaseActivity.ipaddress+"/crm/rest/orderReST/orderBookingStatsToday/" + userID;
+                final String url = BaseActivity.ipaddress+"/crm/rest/orderReST/orderBookingStatsToday/" + userID +"/"+ tenantID;
                 System.out.println(url);
                 HttpEntity<String> request = new HttpEntity<String>(headers);
                 RestTemplate restTemplate = new RestTemplate();

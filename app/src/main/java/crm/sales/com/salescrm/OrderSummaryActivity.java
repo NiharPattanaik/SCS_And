@@ -5,13 +5,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -19,15 +18,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import crm.sales.com.salescrm.model.Order;
 
@@ -187,11 +179,12 @@ public class OrderSummaryActivity extends BaseActivity {
                 otp = String.valueOf(params[2]);
                 String userName = sharedpreferences.getString("userName", "");
                 String password = sharedpreferences.getString("password", "");
+                int tenantID = sharedpreferences.getInt("tenantID", 0);
                 String plainCreds = userName + ":" + password;
                 String base64encoded = Base64.encodeToString(plainCreds.getBytes(), Base64.DEFAULT);
                 HttpHeaders headers = new HttpHeaders();
                 headers.add("Authorization", "Basic " + base64encoded);
-                final String url = BaseActivity.ipaddress+"/crm/rest/otpReST/verify/" + customerID + "/" + otpType + "/" + otp;
+                final String url = BaseActivity.ipaddress+"/crm/rest/otpReST/verify/" + customerID + "/" + otpType + "/" + otp + "/"+ tenantID;
                 HttpEntity<String> request = new HttpEntity<String>(headers);
                 RestTemplate restTemplate = new RestTemplate();
                 ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.PUT, request, String.class);

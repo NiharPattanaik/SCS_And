@@ -3,19 +3,17 @@ package crm.sales.com.salescrm;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 
 /**
  * Created by npattana on 21/04/17.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity  {
 
-    public static final String ipaddress = "http://35.189.180.185:8080";
+    public static final String ipaddress = "http://172.20.10.2:8080";
 
     public static final String LOGIN_STATUS = "loginStatus";
 

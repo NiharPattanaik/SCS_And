@@ -4,33 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.sax.TextElementListener;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.ArrayList;
-import java.util.List;
 
 //import org.springframework.http.converter.StringHttpMessageConverter;
 //import org.springframework.web.client.RestTemplate;
@@ -102,7 +87,7 @@ public class MainActivity extends BaseActivity {
         protected void onPostExecute(String result) {
 
             int userID = -1;
-            int resellerID = -1;
+            int tenantID = -1;
             String commaSeparatedRoleIDs = "";
             try {
                 JSONObject jsonObject = new JSONObject(result);
@@ -122,7 +107,7 @@ public class MainActivity extends BaseActivity {
                             //Retrive User ID
                             userID = userObject.getInt("userID");
                             //Retrieve Reseller ID
-                            resellerID = userObject.getInt("resellerID");
+                            tenantID = userObject.getInt("tenantID");
                             JSONArray rolesArray = userObject.getJSONArray("roles");
                             if (rolesArray != null) {
                                 String[] roleIDArray = new String[rolesArray.length()];
@@ -143,7 +128,7 @@ public class MainActivity extends BaseActivity {
                     editor.putString("userName", userName);
                     editor.putString("password", password);
                     editor.putInt("userID", userID);
-                    editor.putInt("resellerID", resellerID);
+                    editor.putInt("tenantID", tenantID);
                     editor.putString("roleIDs", commaSeparatedRoleIDs);
                     editor.putBoolean(BaseActivity.LOGIN_STATUS, true);
                     editor.commit();

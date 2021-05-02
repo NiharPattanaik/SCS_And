@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -22,7 +22,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -159,11 +158,12 @@ public class GenerateOTPActivity extends BaseActivity {
                 customerName = String.valueOf(params[2]);
                 String userName = sharedpreferences.getString("userName", "");
                 String password = sharedpreferences.getString("password", "");
+                int tenantID = sharedpreferences.getInt("tenantID", 0);
                 String plainCreds = userName + ":" + password;
                 String base64encoded = Base64.encodeToString(plainCreds.getBytes(), Base64.DEFAULT);
                 HttpHeaders headers = new HttpHeaders();
                 headers.add("Authorization", "Basic " + base64encoded);
-                final String url = BaseActivity.ipaddress+"/crm/rest/otpReST/generate/" + customerID + "/" + otpType;
+                final String url = BaseActivity.ipaddress+"/crm/rest/otpReST/generate/" + customerID + "/" + otpType + "/" + tenantID;
                 System.out.println(url);
                 HttpEntity<String> request = new HttpEntity<String>(headers);
                 RestTemplate restTemplate = new RestTemplate();
@@ -227,11 +227,12 @@ public class GenerateOTPActivity extends BaseActivity {
                 int userID = sharedpreferences.getInt("userID", -1);
                 String userName = sharedpreferences.getString("userName", "");
                 String password = sharedpreferences.getString("password", "");
+                int tenantID = sharedpreferences.getInt("tenantID", 0);
                 String plainCreds = userName+":"+password;
                 String base64encoded = Base64.encodeToString(plainCreds.getBytes(), Base64.DEFAULT);
                 HttpHeaders headers = new HttpHeaders();
                 headers.add("Authorization", "Basic " + base64encoded);
-                final String url = BaseActivity.ipaddress+"/crm/rest/customer/"+ uri +"/"+userID;
+                final String url = BaseActivity.ipaddress+"/crm/rest/customer/"+ uri +"/"+userID +"/"+ tenantID;
                 HttpEntity<String> request = new HttpEntity<String>(headers);
                 RestTemplate restTemplate = new RestTemplate();
                 ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, request, String.class);
